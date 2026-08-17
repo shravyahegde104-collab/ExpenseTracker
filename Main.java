@@ -42,6 +42,10 @@ public class Main {
 
             } else if (choice == 5) {
 
+                searchByCategory(input, expenses);
+
+            } else if (choice == 6) {
+
                 saveExpenses(expenses);
                 running = false;
                 System.out.println("Thank you for using Expense Tracker!");
@@ -67,7 +71,8 @@ public class Main {
         System.out.println("2. View Expenses");
         System.out.println("3. Calculate Total");
         System.out.println("4. Delete Expense");
-        System.out.println("5. Exit");
+        System.out.println("5. Search by category");
+        System.out.println("6. Exit");
         System.out.println("================================");
     }
 
@@ -231,6 +236,36 @@ public class Main {
         } catch (IOException e) {
 
             System.out.println("Could not load expenses.");
+        }
+    }
+
+
+    static void searchByCategory(Scanner input, ArrayList<Expense> expenses) {
+
+        System.out.print("Enter category to search: ");
+        String searchCategory = input.next();
+
+        boolean found = false;
+
+        System.out.println("\n===== SEARCH RESULTS =====");
+
+        for (Expense expense : expenses) {
+
+            if (expense.category.equalsIgnoreCase(searchCategory)) {
+
+                System.out.println(
+                    "₹" + expense.amount +
+                    " | " + expense.category +
+                    " | " + expense.description +
+                    " | " + expense.date
+                );
+
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No expenses found in this category.");
         }
     }
 }
