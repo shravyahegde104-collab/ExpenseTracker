@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
@@ -49,8 +48,12 @@ public class Main {
 
                 categorySummary(expenses);
 
+            } else if (choice == 7) {
+                  
+                highestExpense(expenses);
+
             }
-             else if (choice == 7) {
+             else if (choice == 8) {
 
                 saveExpenses(expenses);
                 running = false;
@@ -79,7 +82,8 @@ public class Main {
         System.out.println("4. Delete Expense");
         System.out.println("5. Search by category");
         System.out.println("6. Category Summary");
-        System.out.println("7. Exit");
+        System.out.println("7. Highest Expense");
+        System.out.println("8. Exit");
         System.out.println("================================");
     }
 
@@ -305,5 +309,29 @@ public class Main {
                 category + " : ₹" + summary.get(category)
             );
         }
+    }
+
+    static void highestExpense(ArrayList<Expense> expenses) {
+
+        if (expenses.isEmpty()) {
+            System.out.println("No expenses available.");
+            return;
+       }
+
+        Expense highest = expenses.get(0);
+
+        for (Expense expense : expenses) {
+
+            if (expense.amount > highest.amount) {
+                highest = expense;
+            }
+        }
+
+        System.out.println("\n===== HIGHEST EXPENSE =====");
+
+        System.out.println("Amount      : ₹" + highest.amount);
+        System.out.println("Category    : " + highest.category);
+        System.out.println("Description : " + highest.description);
+        System.out.println("Date        : " + highest.date);
     }
 }
