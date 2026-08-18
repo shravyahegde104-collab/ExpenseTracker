@@ -233,7 +233,7 @@ public class Main {
                 String description = parts[2];
 
                 LocalDate date = LocalDate.parse(parts[3]);
-                Expense expense = new Expense(amount, category, description);
+                Expense expense = new Expense(amount, category, description, date);
 
                 expenses.add(expense);
             }
