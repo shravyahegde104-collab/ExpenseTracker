@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -44,7 +45,12 @@ public class Main {
 
                 searchByCategory(input, expenses);
 
-            } else if (choice == 6) {
+            } else if (choice ==6) {
+
+                categorySummary(expenses);
+
+            }
+             else if (choice == 7) {
 
                 saveExpenses(expenses);
                 running = false;
@@ -72,7 +78,8 @@ public class Main {
         System.out.println("3. Calculate Total");
         System.out.println("4. Delete Expense");
         System.out.println("5. Search by category");
-        System.out.println("6. Exit");
+        System.out.println("6. Category Summary");
+        System.out.println("7. Exit");
         System.out.println("================================");
     }
 
@@ -266,6 +273,37 @@ public class Main {
 
         if (!found) {
             System.out.println("No expenses found in this category.");
+        }
+    }
+
+    static void categorySummary(ArrayList<Expense> expenses) {
+
+        HashMap<String, Double> summary = new HashMap<>();
+
+        for (Expense expense : expenses) {
+
+            String category = expense.category;
+
+            if (summary.containsKey(category)) {
+
+                summary.put(
+                    category,
+                    summary.get(category) + expense.amount
+                );
+
+            } else {
+
+                summary.put(category, (double) expense.amount);
+            }
+        }
+
+        System.out.println("\n===== EXPENSE SUMMARY =====");
+
+        for (String category : summary.keySet()) {
+
+            System.out.println(
+                category + " : ₹" + summary.get(category)
+            );
         }
     }
 }
