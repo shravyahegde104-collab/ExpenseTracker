@@ -66,6 +66,32 @@ public class Main {
 
             } else if (choice == 8) {
 
+                service.viewExpenses(expenses);
+
+                System.out.print("Enter the expense number to update: ");
+                int number = input.nextInt();
+
+                System.out.print("Enter new amount: ");
+                int amount = input.nextInt();
+
+                System.out.print("Enter new category: ");
+                String category = input.next();
+
+                input.nextLine();
+
+                System.out.print("Enter new description: ");
+                String description = input.nextLine();
+
+                service.updateExpense(
+                    number,
+                    amount,
+                    category,
+                    description,
+                    expenses
+                );
+                       
+            } else if (choice == 9) {
+
                 saveExpenses(expenses);
                 running = false;
                 System.out.println("Thank you for using Expense Tracker!");
@@ -94,7 +120,8 @@ public class Main {
         System.out.println("5. Search by category");
         System.out.println("6. Category Summary");
         System.out.println("7. Highest Expense");
-        System.out.println("8. Exit");
+        System.out.println("8. Update Expense");
+        System.out.println("9. Exit");
         System.out.println("================================");
     }
 
