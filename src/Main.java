@@ -26,6 +26,13 @@ public class Main {
             showMenu();
 
             System.out.print("Enter your choice: ");
+
+            while (!input.hasNextInt()) {
+                System.out.println("Please enter a valid number.");
+                input.next();
+                System.out.print("Enter your choice: ");
+            }
+
             int choice = input.nextInt();
 
             if (choice == 1) {
@@ -42,8 +49,14 @@ public class Main {
 
             } else if (choice == 4) {
 
-                service.viewExpenses(expenses);
                 System.out.print("Enter the expense number to delete: ");
+
+                while (!input.hasNextInt()) {
+                    System.out.println("Please enter a valid expense number.");
+                    input.next();
+                    System.out.print("Enter the expense number to delete: ");
+                }
+
                 int number = input.nextInt();
 
                 service.deleteExpense(number, expenses);
@@ -69,13 +82,52 @@ public class Main {
                 service.viewExpenses(expenses);
 
                 System.out.print("Enter the expense number to update: ");
+
+                while (!input.hasNextInt()) {
+                    System.out.println("Please enter a valid expense number.");
+                    input.next();
+                    System.out.print("Enter the expense number to update: ");
+                }
+
                 int number = input.nextInt();
 
-                System.out.print("Enter new amount: ");
-                int amount = input.nextInt();
+                int amount;
 
-                System.out.print("Enter new category: ");
-                String category = input.next();
+                while (true) {
+
+                    System.out.print("Enter new amount: ");
+
+                    if (input.hasNextInt()) {
+
+                        amount = input.nextInt();
+
+                        if (amount > 0) {
+                            break;
+                        }
+
+                        System.out.println("Amount must be greater than 0.");
+
+                    } else {
+
+                        System.out.println("Please enter a valid number.");
+                        input.next();
+                    }
+                }
+
+
+                String category;
+
+                while (true) {
+
+                    System.out.print("Enter new category: ");
+                    category = input.next();
+
+                    if (category.matches("[a-zA-Z]+")) {
+                        break;
+                    }
+
+                    System.out.println("Category should contain letters only.");
+                }
 
                 input.nextLine();
 
@@ -126,40 +178,70 @@ public class Main {
     }
 
 
-    static void addExpense(Scanner input, ArrayList<Expense> expenses, ExpenseService service) {
+    static void addExpense(
+        Scanner input,
+        ArrayList<Expense> expenses,
+        ExpenseService service) {
 
         int amount;
-        while(true){
-            System.out.print("enter amount:");
-            amount=input.nextInt();
-            if(amount>0){
-                break;
+
+        while (true) {
+
+            System.out.print("Enter amount: ");
+
+            if (input.hasNextInt()) {
+
+                amount = input.nextInt();
+
+                if (amount > 0) {
+                    break;
+                }
+
+                System.out.println("Amount must be greater than 0.");
+
+            } else {
+
+                System.out.println("Please enter a valid number.");
+                input.next();
             }
-            System.out.println("Amount must be greater than 0.");
         }
+
+
         String category;
-        while(true){
+
+        while (true) {
+
             System.out.print("Enter category: ");
             category = input.next();
-            if(!category.isEmpty()){
+
+            if (category.matches("[a-zA-Z]+")) {
                 break;
             }
-            System.out.println("Category cannot be empty.");
+
+            System.out.println("Category should contain letters only.");
         }
+
 
         input.nextLine();
 
+
         String description;
-        while(true){
+
+        while (true) {
+
             System.out.print("Enter description: ");
             description = input.nextLine();
-            if(!description.isEmpty()){
+
+            if (!description.isEmpty()) {
                 break;
             }
+
             System.out.println("Description cannot be empty.");
         }
 
-        Expense expense = new Expense(amount, category, description);
+
+        Expense expense =
+                new Expense(amount, category, description);
 
         service.addExpense(expense, expenses);
     }
