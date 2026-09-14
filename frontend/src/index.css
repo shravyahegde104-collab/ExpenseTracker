@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-paper text-ink font-body;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display text-ink tracking-tight;
+  }
+
+  /* Visible keyboard focus, kept consistent across the app */
+  :focus-visible {
+    outline: 2px solid theme("colors.brand.500");
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: theme("colors.brand.100");
+  }
+
+  /* Tabular figures for anything monospace (amounts, dates) so columns
+     of numbers line up instead of jittering. */
+  .font-mono {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  /* Thin, unobtrusive scrollbar for horizontally-scrolling tables on
+     narrow viewports — avoids the default chunky scrollbar breaking the
+     card's rounded corners. */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: theme("colors.line.strong") transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: theme("colors.line.strong");
+    border-radius: 999px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
